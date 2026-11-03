@@ -39,7 +39,6 @@ cleaned AS (
         NULLIF(UPPER(TRIM(CAST(filing_status AS STRING))), '') AS filing_status,
         NULLIF(UPPER(TRIM(CAST(job_type AS STRING))), '') AS job_type,
 
-        -- Preserve all five date names expected by Part 7's dim_date model.
         -- SAFE_CAST returns NULL for invalid values instead of failing the run.
         SAFE_CAST(filing_date AS TIMESTAMP) AS filing_date,
         SAFE_CAST(current_status_date AS TIMESTAMP) AS current_status_date,
