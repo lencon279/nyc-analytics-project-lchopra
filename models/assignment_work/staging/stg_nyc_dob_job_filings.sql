@@ -59,8 +59,6 @@ cleaned AS (
         END AS borough,
         NULLIF(TRIM(CAST(council_district AS STRING)), '') AS council_district,
 
-        -- DOB postcode is the JOB LOCATION ZIP. Raw zip is the applicant ZIP.
-        -- Keep valid 5-digit, 9-digit, or ZIP+4 values, as in the 311 model.
         CASE
             WHEN REGEXP_CONTAINS(TRIM(CAST(postcode AS STRING)), r'^\d{5}(-?\d{4})?$')
                 THEN TRIM(CAST(postcode AS STRING))
@@ -77,7 +75,6 @@ cleaned AS (
         SAFE_CAST(initial_cost AS NUMERIC) AS initial_cost,
         SAFE_CAST(total_construction_floor_area AS NUMERIC) AS total_construction_floor_area,
 
-        -- Retain the exact names expected by Part 7's representative dimension.
         -- Trim whitespace and turn blank strings into NULLs.
         NULLIF(TRIM(CAST(filing_representative_first_name AS STRING)), '')
             AS filing_representative_first_name,
